@@ -9,7 +9,8 @@
                  [clj-stacktrace "0.2.8"]]
   :repositories [["private" {:url "s3p://mayvenn-dependencies/releases/"
                              
-                             }]]
+                             
+                             
   :plugins [[s3-wagon-private "1.1.2"]]
   :profiles
   {:dev {:source-paths ["dev"]
