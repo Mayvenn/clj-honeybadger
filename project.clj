@@ -7,10 +7,10 @@
                  [cheshire "5.4.0"]
                  [clj-http "1.0.1"]
                  [clj-stacktrace "0.2.8"]]
-  :repositories [["private" {:url "s3p://mayvenn-dependencies/releases/"
-                             :username :env
-                             :passphrase :env
-                             :sign-releases false}]]
+  :repositories [["releases" {:url "s3p://mayvenn-dependencies/releases/"
+                              :username :env
+                              :passphrase :env
+                              :sign-releases false}]]
   :plugins [[s3-wagon-private "1.1.2"]]
   :profiles
   {:dev {:source-paths ["dev"]
