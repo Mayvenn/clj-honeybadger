@@ -39,4 +39,4 @@
                          :headers {"X-API-Key" (:api-key options)}
                          :body (json/generate-string
                                 (honeybadger-map (st/parse-exception ex) options))}))
-  e)
+  ex)
