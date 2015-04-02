@@ -26,6 +26,11 @@
         (is (= "java.lang.Exception" (get-in data [:error :class])))
         (is (= "Something went wrong" (get-in data [:error :message])))))))
 
+(deftest test-returns-exception
+  (with-fake-endpoint sent-data
+    (let [exception (Exception. "Something went very wrong")]
+      (is (= exception (send-exception! exception {:api-key "XXXXXXX"}))))))
+
 (deftest test-skips-sending-in-development
   (with-fake-endpoint sent-data
     (send-exception! (Exception. "Something went wrong") {:api-key "XXXXXXX"})
