@@ -9,7 +9,7 @@ This is useful when your service isn't a web server (i.e. - A worker process).
 Add to your dependencies in your `project.clj`:
 
 ```
-[clj-honeybadger "0.1.0"]
+[clj-honeybadger "0.3.1"]
 ```
 
 # Usage
