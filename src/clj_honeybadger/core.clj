@@ -17,7 +17,7 @@
   {:notifier
    {:name "Clojure Honeybadger"
     :url "https://github.com/mayvenn/clj-honeybadger"
-    :version "0.1.0"}
+    :version "0.3.1"}
 
    :error
    {:class     (.getName (:class ex))
