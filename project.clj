@@ -14,8 +14,8 @@
   :plugins [[s3-wagon-private "1.1.2"]]
   :profiles
   {:dev {:source-paths ["dev"]
-         :dependencies [[pjstadig/humane-test-output "0.6.0"]
+         :dependencies [[diff-eq "0.1.0"]
                         [org.clojure/tools.namespace "0.2.9"]
                         [clj-http-fake "1.0.1"]]
-         :injections [(require 'pjstadig.humane-test-output)
-                      (pjstadig.humane-test-output/activate!)]}})
+         :injections [(require 'diff-eq.core)
+                      (diff-eq.core/diff!)]}})
