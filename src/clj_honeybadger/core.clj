@@ -16,8 +16,8 @@
 (defn honeybadger-map [ex options]
   {:notifier
    {:name "Clojure Honeybadger"
-    :url "mayvenn.com"
-    :version "1.0.0"}
+    :url "https://github.com/mayvenn/clj-honeybadger"
+    :version "0.1.0"}
 
    :error
    {:class     (.getName (:class ex))
