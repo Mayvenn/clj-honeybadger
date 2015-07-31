@@ -8,7 +8,7 @@ This is useful when your service isn't a web server (i.e. - A worker process).
 
 Add to your dependencies in your `project.clj`:
 
-```
+```clj
 [clj-honeybadger "0.3.1"]
 ```
 
@@ -16,7 +16,7 @@ Add to your dependencies in your `project.clj`:
 
 Use `send-exception!` to send an exception to honeybadger:
 
-```
+```clj
 (require '[clj-honeybadger.core :as honeybadger])
 
 (try
