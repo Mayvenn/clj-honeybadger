@@ -1,4 +1,4 @@
-(defproject clj-honeybadger "0.3.1-SNAPSHOT"
+(defproject clj-honeybadger "0.3.1"
   :description "Sends exceptions to Honeybadger"
   :url "https://github.com/Mayvenn/clj-honeybadger"
   :license {:name "Eclipse Public License"
