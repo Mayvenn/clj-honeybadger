@@ -14,23 +14,26 @@
   (.getCanonicalPath (io/file ".")))
 
 (defn honeybadger-map [ex options]
-  {:notifier
-   {:name "Clojure Honeybadger"
-    :url "https://github.com/mayvenn/clj-honeybadger"
-    :version "0.3.1"}
+  (let [parsed-ex (st/parse-exception ex)]
+    {:notifier
+     {:name "Clojure Honeybadger"
+      :url "https://github.com/mayvenn/clj-honeybadger"
+      :version "0.3.1"}
 
-   :error
-   {:class     (.getName (:class ex))
-    :message   (:message ex)
-    :backtrace (for [trace (:trace-elems ex)]
-                 {:number (:line trace)
-                  :file   (:file trace)
-                  :method (or (:method trace) (:fn trace))})}
+     :error
+     {:class     (.getName (:class parsed-ex))
+      :message   (if (instance? clojure.lang.ExceptionInfo ex)
+                   (str (:message parsed-ex) " -- " (pr-str (.getData ex)))
+                   (:message parsed-ex))
+      :backtrace (for [trace (:trace-elems parsed-ex)]
+                   {:number (:line trace)
+                    :file   (:file trace)
+                    :method (or (:method trace) (:fn trace))})}
 
-   :server
-   {:project_root     {:path current-dir}
-    :environment_name (:env options)
-    :hostname         hostname}})
+     :server
+     {:project_root     {:path current-dir}
+      :environment_name (:env options)
+      :hostname         hostname}}))
 
 (defn send-exception! [ex options]
   (when-not (= (:env options "development") "development")
@@ -38,5 +41,5 @@
                          :accept :json
                          :headers {"X-API-Key" (:api-key options)}
                          :body (json/generate-string
-                                (honeybadger-map (st/parse-exception ex) options))}))
+                                (honeybadger-map ex options))}))
   ex)
