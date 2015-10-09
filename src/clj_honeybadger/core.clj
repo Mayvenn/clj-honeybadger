@@ -25,7 +25,7 @@
   (if (and (ex-info? ex)
            (:rethrown (ex-data ex)))
     (st/parse-exception (.getCause ex))
-    (st/parse-execption ex)))
+    (st/parse-exception ex)))
 
 (defn honeybadger-map [ex options]
   (let [parsed-ex (parse-exception ex)]
