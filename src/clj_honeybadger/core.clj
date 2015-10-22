@@ -13,8 +13,22 @@
 (def current-dir
   (.getCanonicalPath (io/file ".")))
 
+(defn ex-info? [ex]
+  (instance? clojure.lang.ExceptionInfo ex))
+
+(defn parse-exception
+  "Parses execption data for Honeybadger. If an ex-info exception is modified
+  from the original exception and rethrown, it can attach :rethrown to its map
+  and this function will, instead, parse its parent exception, preserving the
+  stack trace."
+  [ex]
+  (if (and (ex-info? ex)
+           (:rethrown (ex-data ex)))
+    (st/parse-exception (.getCause ex))
+    (st/parse-exception ex)))
+
 (defn honeybadger-map [ex options]
-  (let [parsed-ex (st/parse-exception ex)]
+  (let [parsed-ex (parse-exception ex)]
     {:notifier
      {:name "Clojure Honeybadger"
       :url "https://github.com/mayvenn/clj-honeybadger"
@@ -22,7 +36,7 @@
 
      :error
      {:class     (.getName (:class parsed-ex))
-      :message   (if (instance? clojure.lang.ExceptionInfo ex)
+      :message   (if (ex-info? ex)
                    (str (:message parsed-ex) " -- " (pr-str (.getData ex)))
                    (:message parsed-ex))
       :backtrace (for [trace (:trace-elems parsed-ex)]
